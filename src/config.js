@@ -2,7 +2,7 @@ const SBD = 'SBD'
 const STEEM = 'STEEM'
 const SP = 'SP'
 const VESTS = 'VESTS'
-const RPC_NODE = { url: 'https://api.steemit.com' }
+const RPC_NODE = { url: 'https://api.steemit.com', useAppbaseApi:true   }
 const HARDFORK = 20
 
 const STEEM_100_PERCENT = 10000
