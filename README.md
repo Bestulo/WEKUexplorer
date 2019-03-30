@@ -1,8 +1,6 @@
-# Steem Explorer
+# Blockchain Explorer based on Steem-JS (For private steemd based Blockchains)
 Steem explorer is a client-side block explorer for steem-like blockchains. It uses Steem-JS API to query users, posts, and transactions directly to the seed nodes.
 
-Announcement:
-[https://steemit.com/utopian-io/@jga/steem-explorer-based-on-steem-js-1539631316061](https://steemit.com/utopian-io/@jga/steem-explorer-based-on-steem-js-1539631316061)
 
 ## Config
 Change the configuration file `src/config.js` with the symbols and rpc_node of the blockchain.
@@ -22,3 +20,12 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+## TO-DO:
+
+**Fix pagination for new query pages**
+
+* account votes
+* account tranfers
+
+Currently first pagines then filters resulting in empty paginated pages.
