@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ChainProperties from './mixins/ChainProperties'
-import revlogo from '@/assets/explogo.png'
+import revlogo from '@/assets/explogo.png' // dont sedit here simple put your file and rename in the assets folder
 
 Vue.config.productionTip = false
 
