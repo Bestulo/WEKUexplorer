@@ -2,6 +2,7 @@
   <div class="post">
     <div v-if="this.exists">
       <div class="info1">
+        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
         <h3 class="right">Payout: {{payout.total}}</h3>
         <card-data :data="this.payout.card"></card-data>
         <div v-if="post.depth==0">
@@ -86,7 +87,14 @@ export default {
           //Update UI
           return;
         }
-        result.json_metadata = JSON.parse(result.json_metadata);
+        try {
+          result.json_metadata = JSON.parse(result.json_metadata);
+        } catch(err) { // <-- the "error object", could use another word instead of err
+          // ... continue 
+          result.json_metadata = {empty:'Post JSON Metada is empty'}
+        }
+
+
         self.post = result;
         
         var no_keys = ['body','json_metadata','beneficiaries','active_votes','replies','body_length','reblogged_by'];

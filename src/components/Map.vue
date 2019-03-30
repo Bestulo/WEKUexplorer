@@ -12,6 +12,9 @@
 	  </div>
     </div
 	><div class="info-block">
+      <center><a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="50%" width="50%"></a></center>
+    </div
+	><div class="info-block">
       <div v-if="lastBlocks.length > 0">
         <div class="last-blocks">
           <!--<h2>Blocks</h2>-->

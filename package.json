@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cors": "^2.8.5",
     "leaflet.icon.glyph": "^0.2.0",
+    "steem": "^0.7.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue2-leaflet": "^1.2.1"

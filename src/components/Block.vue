@@ -5,6 +5,7 @@
         <h1>Block {{$route.params.id}}</h1>
       </div>
       <div class="info1">
+        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
         <h2>Block info</h2>
         <card-data :data="this.blockGenerals"></card-data>
       </div

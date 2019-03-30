@@ -8,6 +8,7 @@
         </div>
       </div>
       <div class="info1">
+        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
         <h2>Generals</h2>
         <card-data :data="this.accountGenerals"></card-data>
         <div v-if="this.exists.voting_manabar">
@@ -181,7 +182,7 @@ export default {
         }
       });
       
-      steem.api.getAccountHistory(name,-1,0, function(err, result) {
+      steem.api.getAccountHistory(name,-1,1, function(err, result) {
         if (err || !result || result.length == 0) {
           console.log(err, result);
           //Update UI

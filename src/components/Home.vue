@@ -1,9 +1,10 @@
 <template>
   <div class="home">      
     <div class="info0">
-      <h1>Steem Explorer</h1>
+      <h1>DREAM Explorer</h1>
     </div>
     <div class="info1">
+        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
       <div v-if="this.exists.globals">
         <div class="card">
           <div class="title">Current supply</div><br
@@ -100,6 +101,7 @@ import Config from '@/config.js'
 import Utils from '@/js/utils.js'
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+//import logo from '@/assets/explogo.png'
 
 export default {
   name: 'Home',
@@ -140,8 +142,8 @@ export default {
   
   created() {
     this.getDynamicGlobalProperties();
-    this.ints.globalprops = setInterval(this.getDynamicGlobalProperties, 12000);
-    this.ints.blocks = setInterval(this.fetchBlocks, 3000);
+    this.ints.globalprops = setInterval(this.getDynamicGlobalProperties, 60000);
+    this.ints.blocks = setInterval(this.fetchBlocks, 12000);
   },
   
   beforeDestroy() {

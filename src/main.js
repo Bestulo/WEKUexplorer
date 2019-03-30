@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ChainProperties from './mixins/ChainProperties'
+import revlogo from '@/assets/explogo.png'
 
 Vue.config.productionTip = false
 

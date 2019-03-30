@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Config from '@/config.js'
 import Home from '@/components/Home'
 import Account from '@/components/Account'
+import AccountVotes from '@/components/Account_votes'
+import AccountTransfer from '@/components/Account_transfer'
 import Post from '@/components/Post'
 import Block from '@/components/Block'
 import Transaction from '@/components/Transaction'
@@ -23,6 +25,14 @@ export default new Router({
       name: 'Account',
       component: Account
     },{
+      path: '/@:account/votes',
+      name: 'AccountVotes',
+      component: AccountVotes
+    },{
+      path: '/@:account/transfer',
+      name: 'AccountTransfer',
+      component: AccountTransfer
+    },{        
       path: '/@:account/:permlink',
       name: 'Post',
       component: Post
