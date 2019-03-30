@@ -29,4 +29,4 @@ npm run build --report
 * account votes
 * account tranfers
 
-Currently first pagines then filters resulting in empty paginated pages.
+Currently first paginates then filters resulting in empty paginated pages.
