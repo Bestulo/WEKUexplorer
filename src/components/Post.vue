@@ -2,7 +2,7 @@
   <div class="post">
     <div v-if="this.exists">
       <div class="info1">
-        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
+        <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
         <h3 class="right">Payout: {{payout.total}}</h3>
         <card-data :data="this.payout.card"></card-data>
         <div v-if="post.depth==0">

@@ -1,10 +1,10 @@
 <template>
   <div class="home">      
     <div class="info0">
-      <h1>DREAM Explorer</h1>
+      <h1>WEKU Explorer</h1>
     </div>
     <div class="info1">
-        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
+        <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
       <div v-if="this.exists.globals">
         <div class="card">
           <div class="title">Current supply</div><br

@@ -1,8 +1,8 @@
-const SBD = 'REV'
-const STEEM = 'DREAM'
+const SBD = 'WKD'
+const STEEM = 'WEKU'
 const SP = 'SP'
 const VESTS = 'VESTS'
-const RPC_NODE = { url: 'http://dev.rockdio.org:8751', useAppbaseApi:true  }
+const RPC_NODE = { url: 'http://standby.weku.io:8190', useAppbaseApi:true  }
 const HARDFORK = 20
 
 const STEEM_100_PERCENT = 10000

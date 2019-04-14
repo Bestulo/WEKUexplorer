@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="info1">
-        <a href="#/"><img src="@/assets/explogo.png" alt="DREAM explogo" height="100%" width="100%"></a>
+        <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
         <h2>Generals</h2>
         <card-data :data="this.accountGenerals"></card-data>
         <div v-if="this.exists.voting_manabar">
