@@ -45,6 +45,11 @@ export default new Router({
       name: 'Transaction',
       component: Transaction
     },{
+      path: '/t/:tx',
+      name: 'Transaction2',
+      component: Transaction
+    },
+    {
       path: '/witnesses/map',
       name: 'Map',
       component: Map

@@ -1,5 +1,6 @@
 <template>
   <div class="transaction">
+    <NavBar />
     <div v-if="this.exists">
       <div class="info0">
         <h1>Transaction</h1>
@@ -18,13 +19,14 @@
 <script>
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+import NavBar from '@/components/NavBar'
 
 export default {
   name: 'Transaction',
   data () {
     return {
-      block: {
-      },
+      // block: {
+      // },
       tx:{        
       },
       exists: false
@@ -33,7 +35,8 @@ export default {
   
   components: {
     CardData,
-    Trx
+    Trx,
+    NavBar
   },
   
   created() {
@@ -46,32 +49,42 @@ export default {
 
   methods: {
     
-    fetchData() {
-      var blocknum = this.$route.params.id;
+    fetchData(a) {
+      const txId = this.$route.params.tx
+      steem.api.getTransaction(txId, (err, res) => {
+        if (!err) {
+          this.tx = res
+          this.exists = true
+        } else {
+          alert(err)
+        }
+      })
+
+      // var blocknum = this.$route.params.id;
             
-      console.log('Fetching data for block '+blocknum);
-      var self = this;
-      steem.api.getBlock(blocknum, function (err, result) {      
-        if (err || !result || result.length == 0) {
-          console.log(err, result);
-          //Update UI
-          return;
-        }
+      // console.log('Fetching data for block '+blocknum);
+      // var self = this;
+      // steem.api.getBlock(blocknum, function (err, result) {      
+      //   if (err || !result || result.length == 0) {
+      //     console.log(err, result);
+      //     //Update UI
+      //     return;
+      //   }
         
-        for(var i=0;i<result.transactions.length;i++){
-          if(!result.transactions[i].transaction_id){
-            result.transactions[i].transaction_id = result.transaction_ids[i];            
-          }
-        }
+      //   for(var i=0;i<result.transactions.length;i++){
+      //     if(!result.transactions[i].transaction_id){
+      //       result.transactions[i].transaction_id = result.transaction_ids[i];            
+      //     }
+      //   }
         
-        self.block = result;
-        var index = self.block.transaction_ids.indexOf(self.$route.params.tx);        
-        if(index >= 0) self.tx = self.block.transactions[index];
-        else {
-          self.tx = {};          
-        }
-        self.exists = true;
-      });
+      //   self.block = result;
+      //   var index = self.block.transaction_ids.indexOf(self.$route.params.tx);        
+      //   if(index >= 0) self.tx = self.block.transactions[index];
+      //   else {
+      //     self.tx = {};          
+      //   }
+      //   self.exists = true;
+      // });
     },
   }
 }

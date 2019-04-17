@@ -1,5 +1,6 @@
 <template>
   <div class="account">
+    <NavBar />
     <div v-if="this.exists.account">
       <div class="profile" :style="this.account.cover_image==''?'background-color: black;':'background-image: url('+this.account.cover_image+');'">
         <div>
@@ -22,7 +23,7 @@
           <card-data :data="this.witnessGenerals"></card-data>
           <h3>Witness props</h3>
           <card-data :data="this.witness.props"></card-data>
-          <h3>SBD exchange rate</h3>
+          <h3>WKD exchange rate</h3>
           <card-data :data="this.witness.sbd_exchange_rate"></card-data>          
         </div>
         <h2>{{this.account.name}} votes for</h2>
@@ -75,6 +76,7 @@
 import Utils from '@/js/utils.js'
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+import NavBar from '@/components/NavBar'
 
 export default {
   name: 'Account',
@@ -109,7 +111,8 @@ export default {
   
   components: {
     CardData,
-    Trx
+    Trx,
+    NavBar
   },
   
   created() {
@@ -176,9 +179,9 @@ export default {
         self.accountGenerals = {
           voting_power: Utils.getVotingPower(self.account)/100 + '%',
           balance: self.account.balance,
-          sbd_balance: self.account.sbd_balance,
+          wkd_balance: self.account.sbd_balance,
           savings_balance: self.account.savings_balance,
-          steem_power: self.vests2sp(self.account.vesting_shares) + ' (' + (delegated>0?'+':'') + self.vests2sp(delegated) + ')',
+          weku_power: self.vests2sp(self.account.vesting_shares) + ' (' + (delegated>0?'+':'') + self.vests2sp(delegated) + ')',
         }
       });
       

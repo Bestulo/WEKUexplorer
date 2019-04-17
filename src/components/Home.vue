@@ -1,8 +1,6 @@
 <template>
   <div class="home">      
-    <div class="info0">
-      <h1>WEKU Explorer</h1>
-    </div>
+    <NavBar />
     <div class="info1">
         <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
       <div v-if="this.exists.globals">
@@ -79,15 +77,15 @@
               </div>
             </div>
           </transition-group>
-        </div
-        ><div class="schedule">
+        </div>
+        <!-- <div class="schedule">
           <h2>Schedule</h2>
           <transition-group name="list-schedule" tag="div">
             <div v-for="(wit,key,index) in schedule" :key="wit" class="list-schedule-item">
               {{wit}}
             </div>
           </transition-group>
-        </div>
+        </div> -->
       </div>
       <div v-else>
         <div class="loader"></div>
@@ -101,6 +99,7 @@ import Config from '@/config.js'
 import Utils from '@/js/utils.js'
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+import NavBar from '@/components/NavBar'
 //import logo from '@/assets/explogo.png'
 
 export default {
@@ -137,7 +136,8 @@ export default {
   
   components: {
     CardData,
-    Trx
+    Trx,
+    NavBar
   },
   
   created() {
@@ -393,5 +393,64 @@ export default {
 .red{
   color: red;
 }
+
+/* Navbar from Codepen https://codepen.io/hossam992/pen/KYXLPY?&page=1 */
+
+/* .container{
+  width: 100%;
+}
+
+.container ul{
+  width: 600px;
+  margin: 50px auto;
+
+}
+
+.container ul li{
+  font-family: tahoma,arial;
+  display: inline-block;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  padding-top: 12px;
+  font-size: 20px;
+  background-color: #1e272e;
+  color: #808e9b;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+
+}
+
+.container ul li .left_span{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 0%;
+  background-color: #d2dae2;
+}
+
+.container ul li .right_span{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 0%;
+  background-color: #d2dae2;
+}
+
+
+.container ul li:hover span{
+  height: 100%;
+  transition: all .5s ease-in-out;
+}
+
+.container ul li:hover{
+  color: #d2dae2;
+  /* padding-top: 15px;
+  transition: all .5s ease-in-out;
+} */
+
 
 </style>

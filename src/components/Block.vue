@@ -1,5 +1,6 @@
 <template>
   <div class="block">
+    <NavBar />
     <div v-if="this.exists">
       <div class="info0">
         <h1>Block {{$route.params.id}}</h1>
@@ -25,6 +26,7 @@
 <script>
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+import NavBar from '@/components/NavBar'
 
 export default {
   name: 'Block',
@@ -40,7 +42,8 @@ export default {
   
   components: {
     CardData,
-    Trx
+    Trx,
+    NavBar
   },
   
   created() {

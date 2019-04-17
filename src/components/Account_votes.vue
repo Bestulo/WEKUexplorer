@@ -220,17 +220,17 @@ export default {
         }       
         
         if(ini > 1){
-          self.pages.push({text:'1',link:'#/@'+name+'?page=1'});
+          self.pages.push({text:'1',link:'#/@'+name+'/votes?page=1'});
           self.pages.push({text:'...'});
         }
         
         for(var i=ini ; i<=end ; i++){
-          self.pages.push({text:i+'',link:'#/@'+name+'?page='+i});
+          self.pages.push({text:i+'',link:'#/@'+name+'/votes?page='+i});
         }
         
         if(end < total_pages){
           self.pages.push({text:'...'});
-          self.pages.push({text:total_pages+'',link:'#/@'+name+'?page='+total_pages});          
+          self.pages.push({text:total_pages+'',link:'#/@'+name+'/votes?page='+total_pages});          
         }
     
         steem.api.getAccountHistory(name,from,limit, function(err, result) {

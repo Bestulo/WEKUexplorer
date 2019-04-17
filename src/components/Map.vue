@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div class="info0">
+    <NavBar />
+    <!-- <div class="info0">
       <h1>Witnesses Monitor Map</h1>
-    </div>
+    </div> -->
 	<div class="map">
       <div id="map"></div>
 	  <div class="last-witness">
 	    <div v-if="lastBlocks.length > 0">
 	      Current Witness: <a :href="'#/@'+current_witness">{{current_witness}}</a> {{current_location}}
-		</div>
+		  </div>
 	  </div>
     </div
 	><div class="info-block">
@@ -55,6 +56,7 @@ import 'leaflet/dist/leaflet.css';
 import greenIconUrl from '@/assets/green-circle.png'
 import redIconUrl from '@/assets/red-circle.png'
 import blueIconUrl from '@/assets/blue-circle.png'
+import NavBar from '@/components/NavBar'
 
 //Axios import for HTTP requests
 import axios from 'axios';
@@ -81,6 +83,10 @@ export default {
       current_witness: '',	  
 	  first_time: true,
     }
+  },
+
+  components: {
+    NavBar
   },
   
   mounted() {

@@ -2,9 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import BootstrapVue from 'bootstrap-vue'
 import router from './router'
 import ChainProperties from './mixins/ChainProperties'
-import revlogo from '@/assets/explogo.png' // dont sedit here simple put your file and rename in the assets folder
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './css/font-awesome/css/all.css'
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
