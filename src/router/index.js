@@ -6,6 +6,7 @@ import Home from '@/components/Home'
 import Account from '@/components/Account'
 import AccountVotes from '@/components/Account_votes'
 import AccountTransfers from '@/components/Account_transfers'
+import AccountComments from '@/components/Account_comments'
 import Post from '@/components/Post'
 import Block from '@/components/Block'
 import Transaction from '@/components/Transaction'
@@ -29,6 +30,10 @@ export default new Router({
       path: '/@:account/votes',
       name: 'AccountVotes',
       component: AccountVotes
+    },{
+      path: '/@:account/comments',
+      name: 'AccountComments',
+      component: AccountComments
     },{
       path: '/@:account/transfers',
       name: 'AccountTransfers',
