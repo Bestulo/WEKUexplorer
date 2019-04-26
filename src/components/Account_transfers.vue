@@ -88,7 +88,7 @@ export default {
       witnessGenerals: {},
       authorities: {},
       transactions: {},
-      limit: 250,
+      limit: 10000,
       perPage: 25,
       pages: [],
       currentPage: 1,
@@ -187,24 +187,30 @@ export default {
           //Update UI
           return;
         }
+        
+        const log = v => (console.log(v), v)
 
         var last_tx = result[0][0];
-        steem.api.getAccountHistory(name, -1, 250, (err, result) => {
+        steem.api.getAccountHistory(name, -1, self.limit, (err, result) => {
           if (!err) {
             self.transactions = result.filter((t) => {
-              return t[1].op[0] === 'vote'
+              return t[1].op[0] === 'transfer'
             }).reverse()
-            self.exists.transactions = true;
+
             self.elems = self.transactions.reduce((newArr, tx, i) => (
               newArr.concat({ page: Math.ceil((i+1)/self.perPage), tx })
             ), [])
+
+            self.exists.transactions = self.elems.length ? true : false
+
             self.currentPage = Number(self.$route.query.page) || 1
-            const log = v => (console.log(v), v)
             const txs = self.elems.filter(el => el.page === Number(self.currentPage)).map(el => el.tx)
             self.transactions = txs
+            console.log(self.elems)
 
             const lastElem = arr => arr[arr.length - 1]
-            const totalPages = lastElem(self.elems).page
+            const totalPages = (lastElem(self.elems)||{}).page
+
             self.pages = [];
             var NUMBER_PAGES_DISPLAYED = 10;
             var ini = self.currentPage - NUMBER_PAGES_DISPLAYED / 2;
@@ -219,49 +225,52 @@ export default {
               if (ini < 1) ini = 1;
               end = totalPages;
             }
+            if (self.exists.transactions) {
+              if (ini > 1) {
+                self.pages.push({
+                  class: 1 == self.currentPage ? 'active' : 'inactive',
+                  text: '1',
+                  link: '#/@' + name + '/transfers?page=1'
+                });
+                self.pages.push({
+                  text: '...'
+                });
+              }
 
-            if (ini > 1) {
-              self.pages.push({
-                class: 1 == self.currentPage ? 'active' : 'inactive',
-                text: '1',
-                link: '#/@' + name + '/votes?page=1'
-              });
-              self.pages.push({
-                text: '...'
-              });
-            }
+              // self.currentPage, name, transfers, page, totalPages, self.pages, lastElem.page
 
-            // self.currentPage, name, votes, page, totalPages, self.pages, lastElem.page
+              for (var i = ini; i <= end; i++) {
+                self.pages.push({
+                  class: i == self.currentPage ? 'active' : 'inactive',
+                  text: i + '',
+                  link: '#/@' + name + '/transfers?page=' + i
+                });
+              }
 
-            for (var i = ini; i <= end; i++) {
-              self.pages.push({
-                class: i == self.currentPage ? 'active' : 'inactive',
-                text: i + '',
-                link: '#/@' + name + '/votes?page=' + i
-              });
-            }
-
-            if (end < totalPages) {
-              self.pages.push({
-                text: '...'
-              });
-              self.pages.push({
-                class: totalPages == self.currentPage ? 'active' : 'inactive',
-                text: totalPages + '',
-                link: '#/@' + name + '/votes?page=' + totalPages
-              });
-            }
-            if (self.currentPage > 1) {
-              self.pages.unshift({
-                text: 'Previous',
-                link: '#/@' + name + '/votes?page=' + String(self.currentPage - 1)
-              })
-            }
-            if (totalPages > 1 && self.currentPage !== totalPages) {
-              self.pages.push({
-                text: 'Next',
-                link: '#/@' + name + '/votes?page=' + String(self.currentPage + 1)
-              })
+              if (end < totalPages) {
+                self.pages.push({
+                  text: '...'
+                });
+                self.pages.push({
+                  class: totalPages == self.currentPage ? 'active' : 'inactive',
+                  text: totalPages + '',
+                  link: '#/@' + name + '/transfers?page=' + totalPages
+                });
+              }
+              if (self.currentPage > 1) {
+                self.pages.unshift({
+                  text: 'Previous',
+                  link: '#/@' + name + '/transfers?page=' + String(self.currentPage - 1)
+                })
+              }
+              if (totalPages > 1 && self.currentPage !== totalPages) {
+                self.pages.push({
+                  text: 'Next',
+                  link: '#/@' + name + '/transfers?page=' + String(self.currentPage + 1)
+                })
+              }
+            } else {
+              self.pages.push({ text: '0 results in the last ' + self.limit + ' transactions.'})
             }
           }
         });

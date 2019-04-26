@@ -51,14 +51,14 @@ export default {
     
     fetchData(a) {
       const txId = this.$route.params.tx
-      steem.api.getTransaction(txId, (err, res) => {
-        if (!err) {
-          this.tx = res
-          this.exists = true
-        } else {
-          alert(err)
-        }
-      })
+      if (txId && txId !== "null") {
+        steem.api.getTransaction(txId, (err, res) => {
+          if (!err) {
+            this.tx = res
+            this.exists = true
+          }
+        })
+      }
 
       // var blocknum = this.$route.params.id;
             

@@ -28,8 +28,7 @@ export default {
   },
   
   methods: {
-    changeFeedPrice(price){      
-    },
+    changeFeedPrice(price){},
     
     updateRS() {
       this.chain.steem_per_rshare = this.chain.reward_balance / this.chain.recent_claims;

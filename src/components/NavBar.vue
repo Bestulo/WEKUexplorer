@@ -4,7 +4,7 @@
     <div class="container">
       <b-navbar-nav>
         <!-- <b-nav-item href="#/votes" class="ml-auto">Votes</b-nav-item> -->
-        <!-- <b-nav-item href="#/transfer" class="ml-auto">Transfers</b-nav-item> -->
+        <!-- <b-nav-item href="#/transfers" class="ml-auto">Transfers</b-nav-item> -->
         <!-- <b-nav-item href="#/" class="ml-auto" active>Block Explorer</b-nav-item>
         <b-nav-item href="#/witness/map" class="ml-auto">Witness Map</b-nav-item> -->
         <!-- <b-nav-item to="/" class="ml-auto">Block Explorer</b-nav-item> -->
@@ -72,7 +72,7 @@ export default {
     onTxSearch(evt) {
       // sample TxId: 64aa8ece3cd871cff951a0cc9f9d15eab974006a
       evt.preventDefault()
-      router.push('/t/' + this.txId)
+      if (this.txId) router.push('/t/' + this.txId)
       // steem.api.getTransaction('64aa8ece3cd871cff951a0cc9f9d15eab974006a', (err, res) =>
       //   err ? console.error(err) : alert(JSON.stringify(res)))
       // alert('got searched!')
