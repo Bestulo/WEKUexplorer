@@ -134,7 +134,7 @@ export default {
   width: 3rem; 
 }
 
-.valueO{
+/* .valueO{
   width: calc(100% - 8rem);
 }
 
@@ -144,7 +144,7 @@ export default {
 
 .valueA2{
   width: calc(100% - 3rem);
-}
+} */
 
 @media only screen and (min-width: 768px) {
 }

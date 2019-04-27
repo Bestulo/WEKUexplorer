@@ -100,6 +100,10 @@ body{
   100% { transform: rotate(360deg); }
 }
 
+.last-blocks {
+  width: 100%
+}
+
 @media only screen and (min-width: 768px) {
   .info1{
     display: inline-block;

@@ -1,6 +1,11 @@
 <template>
   <b-navbar toggleable="lg" type="light">
-    <b-navbar-brand href="#/"><h1 class="brandy">WEKU Explorer</h1></b-navbar-brand>
+    <b-navbar-brand href="#/">
+      <img src="@/assets/explogo.png" alt="WEKU Logo" height="60px">
+      <!-- Test -->
+      <span class="brandy">WEKU Explorer</span>
+      <!-- <h1 class="brandy" style="float:right">WEKU Explorer</h1> -->
+    </b-navbar-brand>
     <div class="container">
       <b-navbar-nav>
         <!-- <b-nav-item href="#/votes" class="ml-auto">Votes</b-nav-item> -->
@@ -118,6 +123,9 @@ body {
 .brandy {
   margin-top:5px;
   color:rgb(51, 51, 51);
+  vertical-align: middle;
+  margin-left:10px;
+  font-size:2em
 }
 
 .container {

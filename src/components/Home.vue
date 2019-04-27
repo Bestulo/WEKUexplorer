@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <NavBar />
-    <div class="info1">
-      <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
+    <div class="infoblocks">
+      <!-- <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a> -->
       <div v-if="this.exists.globals">
         <div class="card">
           <div class="title">Current supply</div>
@@ -44,7 +44,8 @@
         <div class="loader"></div>
       </div>
     </div>
-    <div class="info2">
+    <div style="clear:both"></div>
+    <div class="container">
       <div v-if="lastBlocks.length > 0">
         <div class="last-blocks">
           <h2>Last Blocks</h2>
@@ -68,14 +69,6 @@
             </div>
           </transition-group>
         </div>
-        <!-- <div class="schedule">
-          <h2>Schedule</h2>
-          <transition-group name="list-schedule" tag="div">
-            <div v-for="(wit,key,index) in schedule" :key="wit" class="list-schedule-item">
-              {{wit}}
-            </div>
-          </transition-group>
-        </div> -->
       </div>
       <div v-else>
         <div class="loader"></div>
@@ -133,13 +126,13 @@ export default {
   created() {
     this.getDynamicGlobalProperties();
     this.fetchBlocks()
-    this.ints.globalprops = setInterval(this.getDynamicGlobalProperties, 60000);
-    this.ints.blocks = setInterval(this.fetchBlocks, 12000);
+    // this.ints.globalprops = setInterval(this.getDynamicGlobalProperties, 60000);
+    // this.ints.blocks = setInterval(this.fetchBlocks, 12000);
   },
   
   beforeDestroy() {
-    clearInterval(this.ints.globalprops);
-    clearInterval(this.ints.blocks);
+    // clearInterval(this.ints.globalprops);
+    // clearInterval(this.ints.blocks);
   },
   
   computed: {
@@ -222,60 +215,62 @@ export default {
     },
   
     fetchBlocks() {
-      if(this.last_block_num == 0) return;      
-      
-      var SIZE_BLOCKS = 10;
-      var last_block_recorded = {}
-      if(this.lastBlocks.length > 0){
-        last_block_recorded = this.lastBlocks[0];          
-      }else{
-        last_block_recorded = {
-          block_num : this.last_block_num - SIZE_BLOCKS,
-          timestamp_milis : (new Date()).getTime(),
-          time_ago: '',
-          loaded: false,
+      steem.api.getState('', (err, res) => {
+        this.last_block_num = res.props.head_block_number
+        console.log(this.last_block_num) 
+        var SIZE_BLOCKS = 10;
+        var last_block_recorded = {}
+        if(this.lastBlocks.length > 0){
+          last_block_recorded = this.lastBlocks[0];          
+        }else{
+          last_block_recorded = {
+            block_num : this.last_block_num - SIZE_BLOCKS,
+            timestamp_milis : (new Date()).getTime(),
+            time_ago: '',
+            loaded: false,
+          }
         }
-      }
-        
-      var n = this.last_block_num - last_block_recorded.block_num;
-      var newBlocks = [];
-      for(var i=1;i<=n;i++) newBlocks.push(this.last_block_num - n + i);
-      this.last_block_num++;
+          
+        var n = this.last_block_num - last_block_recorded.block_num;
+        var newBlocks = [];
+        for(var i=1;i<=n;i++) newBlocks.push(this.last_block_num - n + i);
+        this.last_block_num++;
+              
+        var self = this;
+        newBlocks.forEach(function(num){
+          var b = {
+            block_num : num,
+            timestamp_milis : last_block_recorded.timestamp_milis + (num-last_block_recorded.block_num)*3000,
+            time_ago: '',
+            size_txs: 0,
+            size_posts: 0,
+            witness: '',
+            loaded: false,
+          };
             
-      var self = this;
-      newBlocks.forEach(function(num){
-        var b = {
-          block_num : num,
-          timestamp_milis : last_block_recorded.timestamp_milis + (num-last_block_recorded.block_num)*3000,
-          time_ago: '',
-          size_txs: 0,
-          size_posts: 0,
-          witness: '',
-          loaded: false,
-        };
-          
-        self.lastBlocks.unshift(b);
-        if(self.lastBlocks.length > SIZE_BLOCKS) self.lastBlocks.pop();
-          
-        steem.api.getBlock(num, function (err, resultBlock) {      
-          if (err || !resultBlock) {
-            console.log(err, resultBlock);             
-            return;
-          }
-          b.size_txs = resultBlock.transactions.length;
-          b.size_posts = resultBlock.transactions.filter(function(tx){
-            return tx.operations[0][0]=='comment' && tx.operations[0][1].parent_author=='';
-          }).length;
-          b.timestamp_milis = (new Date(resultBlock.timestamp+'Z')).getTime();
-          b.witness = resultBlock.witness;
-          b.loaded = true;
-          var pos = self.lastBlocks.findIndex(function(blk){return blk.block_num == num});
-          if(pos >= 0){
-            self.$set(self.lastBlocks, pos, b);
-            if(pos == 0 && b.witness == self.schedule[0]) self.schedule.shift()
-          }
-        });  
-      });       
+          self.lastBlocks.unshift(b);
+          if(self.lastBlocks.length > SIZE_BLOCKS) self.lastBlocks.pop();
+            
+          steem.api.getBlock(num, function (err, resultBlock) {      
+            if (err || !resultBlock) {
+              console.log(err, resultBlock);             
+              return;
+            }
+            b.size_txs = resultBlock.transactions.length;
+            b.size_posts = resultBlock.transactions.filter(function(tx){
+              return tx.operations[0][0]=='comment' && tx.operations[0][1].parent_author=='';
+            }).length;
+            b.timestamp_milis = (new Date(resultBlock.timestamp+'Z')).getTime();
+            b.witness = resultBlock.witness;
+            b.loaded = true;
+            var pos = self.lastBlocks.findIndex(function(blk){return blk.block_num == num});
+            if(pos >= 0){
+              self.$set(self.lastBlocks, pos, b);
+              if(pos == 0 && b.witness == self.schedule[0]) self.schedule.shift()
+            }
+          });  
+        });
+      })
     },
   }
 }
@@ -284,8 +279,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.infoblocks {
+  width: 98%;
+  margin:auto;
+}
+
+.infoblocks .card {
+  height: 220px;
+  width: 30%;
+  float:left;
+  margin-left: 15px;
+  margin-top: 15px;
+}
 .last-blocks{
-  width: calc(100% - 8rem - 10px);
+  /* width: calc(100% - 8rem - 10px); */
   display: inline-block;
   vertical-align: top;
 }

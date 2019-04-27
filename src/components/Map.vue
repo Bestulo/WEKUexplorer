@@ -13,9 +13,6 @@
 	  </div>
     </div
 	><div class="info-block">
-      <center><a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="50%" width="50%"></a></center>
-    </div
-	><div class="info-block">
       <div v-if="lastBlocks.length > 0">
         <div class="last-blocks">
           <!--<h2>Blocks</h2>-->
@@ -525,7 +522,7 @@ export default {
   .info-block{
     display: inline-block;
 	vertical-align: top;
-    width: calc(100% - 50% - 120px);
+    /* width: calc(100% - 50% - 120px); */
     margin: 15px 50px 15px 10px;
   }
 }
