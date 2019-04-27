@@ -2,10 +2,13 @@
   <div class="account">
     <NavBar />
     <div v-if="this.exists.account">
-      <div class="profile" :style="this.account.cover_image==''?'background-color: black;':'background-image: url('+this.account.cover_image+');'">
+      <div class="profile"
+        :style="this.account.cover_image==''?'background-color: black;':'background-image: url('+this.account.cover_image+');'">
         <div>
           <div class="image" :style="'background-image: url('+this.account.profile_image+');'"></div>
-          <div class="name"><h1><strong>@{{this.account.name}}</strong> ({{account.rep_log}})</h1></div>
+          <div class="name">
+            <h1><strong>@{{this.account.name}}</strong> ({{account.rep_log}})</h1>
+          </div>
         </div>
       </div>
       <div class="info1">
@@ -24,7 +27,7 @@
           <h3>Witness props</h3>
           <card-data :data="this.witness.props"></card-data>
           <h3>WKD exchange rate</h3>
-          <card-data :data="this.witness.sbd_exchange_rate"></card-data>          
+          <card-data :data="this.witness.sbd_exchange_rate"></card-data>
         </div>
         <h2>{{this.account.name}} votes for</h2>
         <card-data :data="this.account.witness_votes" typeCard="witnesses" :link="true"></card-data>
@@ -40,9 +43,10 @@
         <h3>Posting Auth</h3>
         <card-data :data="this.authorities.posting" :link="true"></card-data>
         <h3>Memo Auth</h3>
-        <card-data :data="this.authorities.memo"></card-data>        
-      </div
-      ><div class="info2">
+        <card-data :data="this.authorities.memo"></card-data>
+      </div>
+      <div class="info2">
+        <InnerNavBar />
         <div v-if="this.exists.json_metadata">
           <h2>JSON metadata</h2>
           <card-data :data="this.account.json_metadata"></card-data>
@@ -55,16 +59,12 @@
         </div>
         <div v-else>
           <div class="loader"></div>
-        </div>        
-        <div class="center">
-          <div v-for="(p,key,index) in pages" class="page"
-            ><span v-if="p.link"
-              ><a :href="p.link">{{p.text}}</a
-            ></span
-            ><span v-else>{{p.text}}</span          
-          ></div>
         </div>
-      </div>  
+        <div class="center">
+          <div v-for="(p,key,index) in pages" class="page"><span v-if="p.link"><a
+                :href="p.link">{{p.text}}</a></span><span v-else>{{p.text}}</span></div>
+        </div>
+      </div>
     </div>
     <div v-else>
       <div class="loader"></div>
@@ -77,6 +77,7 @@ import Utils from '@/js/utils.js'
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
 import NavBar from '@/components/NavBar'
+import InnerNavBar from '@/components/menus/InnerNavBar'
 
 export default {
   name: 'Account',
@@ -112,16 +113,17 @@ export default {
   components: {
     CardData,
     Trx,
-    NavBar
+    NavBar,
+    InnerNavBar
   },
   
   created() {
     this.fetchData()
   },
 
-  watch: {
-    '$route': 'fetchData'    
-  },
+  // watch: {
+  //   '$route': 'fetchData'    
+  // },
 
   methods: {
     
@@ -280,6 +282,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .profile{  
   text-align: center;
   display: block;

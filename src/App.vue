@@ -46,18 +46,23 @@ body{
 }
 
 .info0{
-  display: block;
+  display: flex;
   margin: 15px 50px;
 }
 
 .info1{
-  display: block;
+  display: flex;
   margin: 15px 50px;
 }
 
 .info2{
-  display: block;
+  display: flex;
+  float:right;
   margin: 15px 50px;
+}
+
+.block-right {
+  float:right
 }
 
 .break-word{

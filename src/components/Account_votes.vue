@@ -1,5 +1,6 @@
 <template>
   <div class="account">
+    <NavBar />
     <div v-if="this.exists.account">
       <div class="profile"
         :style="this.account.cover_image==''?'background-color: black;':'background-image: url('+this.account.cover_image+');'">
@@ -45,6 +46,7 @@
         <card-data :data="this.authorities.memo"></card-data>
       </div>
       <div class="info2">
+        <InnerNavBar />
         <div v-if="this.exists.json_metadata">
           <h2>JSON metadata</h2>
           <card-data :data="this.account.json_metadata"></card-data>
@@ -76,6 +78,8 @@
 import Utils from '@/js/utils.js'
 import CardData from '@/components/CardData'
 import Trx from '@/components/Trx'
+import NavBar from '@/components/NavBar'
+import InnerNavBar from '@/components/menus/InnerNavBar'
 
 export default {
   name: 'Account',
@@ -105,7 +109,9 @@ export default {
 
   components: {
     CardData,
-    Trx
+    Trx,
+    NavBar,
+    InnerNavBar
   },
 
   created() {
@@ -184,7 +190,7 @@ export default {
       steem.api.getAccountHistory(name, -1, 1, function (err, result) {
         if (err || !result || result.length == 0) {
           console.log(err, result);
-          //Update UI
+          // Update UI
           return;
         }
 

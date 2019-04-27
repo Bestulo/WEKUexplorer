@@ -1,63 +1,53 @@
 <template>
-  <div class="home">      
+  <div class="home">
     <NavBar />
     <div class="info1">
-        <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
+      <a href="#/"><img src="@/assets/explogo.png" alt="WEKU explogo" height="100%" width="100%"></a>
       <div v-if="this.exists.globals">
         <div class="card">
-          <div class="title">Current supply</div><br
-          >{{this.chainprops.current_supply}}<br
-          >{{this.chainprops.current_sbd_supply}}<br
-          ><hr>virtual {{this.chainprops.virtual_supply}}
+          <div class="title">Current supply</div>
+          <br>{{this.chainprops.current_supply}}<br>{{this.chainprops.current_sbd_supply}}<br>
+          <hr>virtual {{this.chainprops.virtual_supply}}
         </div>
         <div class="card">
-          <div class="title">Inflation</div><br
-          >Annual rate: {{this.chainprops.current_inflation_rate}}<br
-          >({{this.chainprops.new_steem_per_day}} per day)
+          <div class="title">Inflation</div><br>Annual rate:
+          {{this.chainprops.current_inflation_rate}}<br>({{this.chainprops.new_steem_per_day}} per day)
         </div>
         <div class="card">
-          <div class="title">Stake</div><br
-          >Fund: {{this.chainprops.total_vesting_fund_steem}}<br
-          >({{this.chainprops.sp_percent.toFixed(2)}}% of virtual sup.)<br
-          >Shares: {{this.chainprops.total_vesting_shares}}<br
-          ><hr
-          >{{this.chainprops.steem_per_mvests.toFixed(3)}} {{this.STEEM_SYMBOL}} per m{{this.VESTS_SYMBOL}}          
-        </div>      
-        <div class="card"> 
-          <div class="title">{{this.SBD_SYMBOL}}</div><br
-          >{{this.chainprops.current_sbd_supply}}<br
-          >(<span :class="{
+          <div class="title">Stake</div><br>Fund:
+          {{this.chainprops.total_vesting_fund_steem}}<br>({{this.chainprops.sp_percent.toFixed(2)}}% of virtual
+          sup.)<br>Shares: {{this.chainprops.total_vesting_shares}}<br>
+          <hr>{{this.chainprops.steem_per_mvests.toFixed(3)}} {{this.STEEM_SYMBOL}} per m{{this.VESTS_SYMBOL}}
+        </div>
+        <div class="card">
+          <div class="title">{{this.SBD_SYMBOL}}</div><br>{{this.chainprops.current_sbd_supply}}<br>(<span :class="{
               green: 100*this.sbd_percent<=this.STEEM_SBD_START_PERCENT,
               orange: 100*this.sbd_percent>this.STEEM_SBD_START_PERCENT && 100*this.sbd_percent<this.STEEM_SBD_STOP_PERCENT,
               red: 100*this.sbd_percent>=this.STEEM_SBD_STOP_PERCENT
-              }">{{this.sbd_percent.toFixed(2)}}%</span
-            > of virtual sup.)<br
-          >Print rate: {{this.chainprops.sbd_print_rate/100}}%<br
-          >Interest rate: {{this.chainprops.sbd_interest_rate/100}}%
+              }">{{this.sbd_percent.toFixed(2)}}%</span> of virtual sup.)<br>Print rate:
+          {{this.chainprops.sbd_print_rate/100}}%<br>Interest rate: {{this.chainprops.sbd_interest_rate/100}}%
         </div>
       </div>
       <div v-else>
         <div class="loader"></div>
-      </div>      
-      <div v-if="this.exists.globals && this.exists.reward">  
+      </div>
+      <div v-if="this.exists.globals && this.exists.reward">
         <div class="card">
-          <div class="title">Reward fund</div><br
-          >{{this.chainprops.reward_balance}}<br
-          >({{this.reward_percent.toFixed(2)}}% of virtual sup.)<br
-          >for next 15 days<br
-          ><hr
-          >{{this.chainprops.reward_balance_day}} per day<br
-          >vote of ${{this.vote_value_1000_sp.toFixed(3)}} per 1000 {{this.SP_SYMBOL}}
+          <div class="title">Reward fund</div>
+          <br>{{this.chainprops.reward_balance}}<br>({{this.reward_percent.toFixed(2)}}% of virtual sup.)<br>for next 15
+          days<br>
+          <hr>{{this.chainprops.reward_balance_day}} per day<br>vote of ${{this.vote_value_1000_sp.toFixed(3)}} per 1000
+          {{this.SP_SYMBOL}}
         </div>
       </div>
       <div v-else>
         <div class="loader"></div>
-      </div>      
-    </div
-    ><div class="info2">
+      </div>
+    </div>
+    <div class="info2">
       <div v-if="lastBlocks.length > 0">
         <div class="last-blocks">
-          <h2>Last Blocks</h2>      
+          <h2>Last Blocks</h2>
           <transition-group name="list-blocks" tag="div" class="block-group">
             <div v-for="(b,key,index) in lastBlocks" :key="b.block_num" class="list-blocks-item">
               <div class="block-left">
@@ -71,8 +61,8 @@
                 <span v-else>
                   loading...
                 </span>
-              </div
-              ><div class="block-right">
+              </div>
+              <div class="block-right">
                 <span class="small">witness</span><br><a :href="'#/@'+b.witness">{{b.witness}}</a>
               </div>
             </div>
@@ -90,7 +80,7 @@
       <div v-else>
         <div class="loader"></div>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -142,6 +132,7 @@ export default {
   
   created() {
     this.getDynamicGlobalProperties();
+    this.fetchBlocks()
     this.ints.globalprops = setInterval(this.getDynamicGlobalProperties, 60000);
     this.ints.blocks = setInterval(this.fetchBlocks, 12000);
   },
